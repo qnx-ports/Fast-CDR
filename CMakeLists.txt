@@ -120,6 +120,9 @@ endif()
 set(DOC_INSTALL_DIR ${DOC_DIR} CACHE PATH "Installation directory for documentation")
 set(LICENSE_INSTALL_DIR ${DATA_INSTALL_DIR}/${PROJECT_NAME} CACHE PATH "Installation directory for licenses")
 
+include(CMakeDependentOption)
+cmake_dependent_option(INSTALL_TESTS "Set to ON to install test binaries"       OFF BUILD_TESTING OFF)
+
 ###############################################################################
 # Compile library.
 ###############################################################################
