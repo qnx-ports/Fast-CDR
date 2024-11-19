@@ -17,16 +17,24 @@
 ###############################################################################
 add_executable(FixedSizeStringTests fixed_size_string.cpp)
 set_common_compile_options(FixedSizeStringTests)
-target_link_libraries(FixedSizeStringTests fastcdr GTest::gtest_main)
-gtest_discover_tests(FixedSizeStringTests)
+target_link_libraries(FixedSizeStringTests fastcdr GTest::gtest_main ${LIBRARIES})
+if("${CMAKE_SYSTEM_NAME}" MATCHES "QNX")
+    gtest_add_tests(TARGET FixedSizeStringTests)
+else()
+    gtest_discover_tests(FixedSizeStringTests)
+endif()
 
 ###############################################################################
 # array_as_std_vector tests
 ###############################################################################
 add_executable(ArrayAsSTDVectorTests array_as_std_vector.cpp)
 set_common_compile_options(ArrayAsSTDVectorTests)
-target_link_libraries(ArrayAsSTDVectorTests fastcdr GTest::gtest_main)
-gtest_discover_tests(ArrayAsSTDVectorTests)
+target_link_libraries(ArrayAsSTDVectorTests fastcdr GTest::gtest_main ${LIBRARIES})
+if("${CMAKE_SYSTEM_NAME}" MATCHES "QNX")
+    gtest_add_tests(TARGET ArrayAsSTDVectorTests)
+else()
+    gtest_discover_tests(ArrayAsSTDVectorTests)
+endif()
 
 ###############################################################################
 # Old cdr unit tests
@@ -34,8 +42,12 @@ gtest_discover_tests(ArrayAsSTDVectorTests)
 set(UNITTESTS_SOURCE SimpleTest.cpp ResizeTest.cpp)
 add_executable(UnitTests ${UNITTESTS_SOURCE})
 set_common_compile_options(UnitTests)
-target_link_libraries(UnitTests fastcdr GTest::gtest_main)
-gtest_discover_tests(UnitTests)
+target_link_libraries(UnitTests fastcdr GTest::gtest_main ${LIBRARIES})
+if("${CMAKE_SYSTEM_NAME}" MATCHES "QNX")
+    gtest_add_tests(TARGET UnitTests)
+else()
+    gtest_discover_tests(UnitTests)
+endif()
 
 ###############################################################################
 # Install cdr test binaries

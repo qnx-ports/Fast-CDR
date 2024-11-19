@@ -26,16 +26,17 @@ set(XCDR_TEST_SOURCE
     )
 add_executable(xcdr_tests ${XCDR_TEST_SOURCE})
 set_common_compile_options(xcdr_tests)
-target_link_libraries(xcdr_tests fastcdr GTest::gtest_main)
-gtest_discover_tests(xcdr_tests)
+target_link_libraries(xcdr_tests fastcdr GTest::gtest_main ${LIBRARIES})
+if("${CMAKE_SYSTEM_NAME}" MATCHES "QNX")
+    gtest_add_tests(TARGET xcdr_tests)
+else()
+    gtest_discover_tests(xcdr_tests)
+endif()
 
 ###############################################################################
-# Install cdr test binaries
+# Install xcdr test binaries
 ###############################################################################
 if(INSTALL_TESTS)
-    set(TARGET_LIST FixedSizeStringTests ArrayAsSTDVectorTests UnitTests)
-    set(TEST_DIR ${BIN_INSTALL_DIR}/tests/cdr)
-    foreach(target IN LISTS TARGET_LIST)
-        install(TARGETS ${target} RUNTIME DESTINATION ${TEST_DIR})
-    endforeach()
+    set(TEST_DIR ${BIN_INSTALL_DIR}/tests/xcdr)
+    install(TARGETS xcdr_tests RUNTIME DESTINATION ${TEST_DIR})
 endif()

@@ -20,8 +20,13 @@ check_stdcxx(${FORCE_CXX})
 include(${PROJECT_SOURCE_DIR}/cmake/common/find_or_add_gtest.cmake)
 find_or_add_gtest()
 
-# Include functions to find and add tests dinamically
+# Include functions to find and add tests dynamically
 include(${PROJECT_SOURCE_DIR}/cmake/testing/GoogleTest.cmake)
+if("${CMAKE_SYSTEM_NAME}" MATCHES "QNX")
+        set(LIBRARIES regex)
+else()
+        set(LIBRARIES "")
+endif()
 
 add_subdirectory(cdr)
 add_subdirectory(xcdr)

@@ -31,6 +31,11 @@ macro(find_or_add_gtest)
         add_library(GTest::gtest ALIAS gtest)
         add_library(GTest::gtest_main ALIAS gtest_main)
         target_link_libraries(gtest_main gtest)
+        
+    # This is for a cross-compilation QNX build
+    elseif("${CMAKE_SYSTEM_NAME}" MATCHES "QNX")
+        # Add googletest directory into the build
+        add_subdirectory(googletest)
 
     # This is a non-ROS 2 build
     else()

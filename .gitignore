@@ -4,6 +4,8 @@
 *.swp
 # Build directory
 build/
+!qnx/build
+test/googletest
 # Visual Studio user configuration files.
 *.vcxproj.user
 *.sdf
